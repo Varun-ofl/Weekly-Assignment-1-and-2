@@ -1,0 +1,286 @@
+﻿Week 5 and 6 Practice Problems
+
+
+Level 1:
+
+
+1.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] age = new int[10];
+
+
+        for(int i=0;i<10;i++)
+            age[i]=sc.nextInt();
+
+
+        for(int i=0;i<10;i++){
+            if(age[i]<0)
+                System.out.println("Invalid age");
+            else if(age[i]>=18)
+                System.out.println("The student with age "+age[i]+" can vote.");
+            else
+                System.out.println("The student with age "+age[i]+" cannot vote.");
+        }
+    }
+}
+
+
+2.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int[] a=new int[5];
+
+
+        for(int i=0;i<5;i++)
+            a[i]=sc.nextInt();
+
+
+        for(int i=0;i<5;i++){
+            if(a[i]>0){
+                if(a[i]%2==0)
+                    System.out.println(a[i]+" is positive even");
+                else
+                    System.out.println(a[i]+" is positive odd");
+            }
+            else if(a[i]<0)
+                System.out.println(a[i]+" is negative");
+            else
+                System.out.println("zero");
+        }
+
+
+        if(a[0]==a[4])
+            System.out.println("Equal");
+        else if(a[0]>a[4])
+            System.out.println("First is greater");
+        else
+            System.out.println("Last is greater");
+    }
+}
+
+
+3.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] table=new int[10];
+
+
+        for(int i=1;i<=10;i++)
+            table[i-1]=n*i;
+
+
+        for(int i=1;i<=10;i++)
+            System.out.println(n+" * "+i+" = "+table[i-1]);
+    }
+}
+
+
+4.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        double[] arr=new double[10];
+        double total=0;
+        int index=0;
+
+
+        while(true){
+            double num=sc.nextDouble();
+            if(num<=0 || index==10)
+                break;
+            arr[index++]=num;
+        }
+
+
+        for(int i=0;i<index;i++){
+            System.out.println(arr[i]);
+            total+=arr[i];
+        }
+
+
+        System.out.println("Total = "+total);
+    }
+}
+
+
+
+
+Level 2:
+
+
+1.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+
+
+        double[] salary=new double[10];
+        double[] years=new double[10];
+        double[] bonus=new double[10];
+        double[] newSalary=new double[10];
+
+
+        double totalBonus=0,totalOld=0,totalNew=0;
+
+
+        for(int i=0;i<10;i++){
+            salary[i]=sc.nextDouble();
+            years[i]=sc.nextDouble();
+            if(salary[i]<0 || years[i]<0){
+                i--;
+            }
+        }
+
+
+        for(int i=0;i<10;i++){
+            if(years[i]>5)
+                bonus[i]=salary[i]*0.05;
+            else
+                bonus[i]=salary[i]*0.02;
+
+
+            newSalary[i]=salary[i]+bonus[i];
+
+
+            totalBonus+=bonus[i];
+            totalOld+=salary[i];
+            totalNew+=newSalary[i];
+        }
+
+
+        System.out.println("Total Bonus = "+totalBonus);
+        System.out.println("Total Old Salary = "+totalOld);
+        System.out.println("Total New Salary = "+totalNew);
+    }
+}
+
+
+2.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+
+
+        int[] age=new int[3];
+        double[] height=new double[3];
+        String[] name={"Amar","Akbar","Anthony"};
+
+
+        for(int i=0;i<3;i++){
+            age[i]=sc.nextInt();
+            height[i]=sc.nextDouble();
+        }
+
+
+        int minAgeIndex=0,maxHeightIndex=0;
+
+
+        for(int i=1;i<3;i++){
+            if(age[i]<age[minAgeIndex])
+                minAgeIndex=i;
+
+
+            if(height[i]>height[maxHeightIndex])
+                maxHeightIndex=i;
+        }
+
+
+        System.out.println("Youngest: "+name[minAgeIndex]);
+        System.out.println("Tallest: "+name[maxHeightIndex]);
+    }
+}
+
+
+3.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+
+
+        int[] digits=new int[10];
+        int index=0;
+
+
+        while(num!=0 && index<10){
+            digits[index++]=num%10;
+            num/=10;
+        }
+
+
+        int largest=0,second=0;
+
+
+        for(int i=0;i<index;i++){
+            if(digits[i]>largest){
+                second=largest;
+                largest=digits[i];
+            }
+            else if(digits[i]>second && digits[i]!=largest)
+                second=digits[i];
+        }
+
+
+        System.out.println("Largest = "+largest);
+        System.out.println("Second Largest = "+second);
+    }
+}
+
+
+
+
+Level 3:
+
+
+1.
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int num=sc.nextInt();
+
+
+        int[] freq=new int[10];
+
+
+        while(num!=0){
+            int digit=num%10;
+            freq[digit]++;
+            num/=10;
+        }
+
+
+        for(int i=0;i<10;i++){
+            if(freq[i]>0)
+                System.out.println(i+" occurs "+freq[i]+" times");
+        }
+    }
+}
