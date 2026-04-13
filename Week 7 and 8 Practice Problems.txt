@@ -1,0 +1,409 @@
+﻿Week 7 and 8 Practice Problems
+
+
+Level 1:
+
+
+1.
+import java.util.Scanner;
+
+
+public class SimpleInterest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter Principal: ");
+        double principal = sc.nextDouble();
+
+
+        System.out.print("Enter Rate: ");
+        double rate = sc.nextDouble();
+
+
+        System.out.print("Enter Time: ");
+        double time = sc.nextDouble();
+
+
+        double si = (principal * rate * time) / 100;
+
+
+        System.out.println("The Simple Interest is " + si +
+            " for Principal " + principal +
+            ", Rate of Interest " + rate +
+            " and Time " + time);
+    }
+}
+
+
+2.
+import java.util.Scanner;
+
+
+public class Handshakes {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+
+
+        int handshakes = (n * (n - 1)) / 2;
+
+
+        System.out.println("Maximum number of handshakes: " + handshakes);
+    }
+}
+
+
+3.
+import java.util.Scanner;
+
+
+public class AthleteRun {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter side1: ");
+        double side1 = sc.nextDouble();
+
+
+        System.out.print("Enter side2: ");
+        double side2 = sc.nextDouble();
+
+
+        System.out.print("Enter side3: ");
+        double side3 = sc.nextDouble();
+
+
+        double perimeter = side1 + side2 + side3;
+        double distance = 5000; // 5 km in meters
+
+
+        double rounds = distance / perimeter;
+
+
+        System.out.println("Number of rounds needed: " + rounds);
+    }
+}
+
+
+4.
+import java.util.Scanner;
+
+
+public class NumberCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+
+        if (num > 0) {
+            System.out.println("Positive");
+        } else if (num < 0) {
+            System.out.println("Negative");
+        } else {
+            System.out.println("Zero");
+        }
+    }
+}
+
+
+
+
+Level 2:
+
+
+1.
+import java.util.Scanner;
+import java.util.Arrays;
+
+
+public class FactorsProgram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+
+        int[] factors = findFactors(num);
+        
+        System.out.println("Factors: " + Arrays.toString(factors));
+        System.out.println("Sum of factors: " + findSum(factors));
+        System.out.println("Product of factors: " + findProduct(factors));
+        System.out.println("Sum of squares: " + findSumOfSquares(factors));
+    }
+
+
+    // Method with two loops as per hint (c)
+    public static int[] findFactors(int n) {
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) count++;
+        }
+
+
+        int[] factors = new int[count];
+        int index = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) factors[index++] = i;
+        }
+        return factors;
+    }
+
+
+    public static int findSum(int[] arr) {
+        int sum = 0;
+        for (int x : arr) sum += x;
+        return sum;
+    }
+
+
+    public static long findProduct(int[] arr) {
+        long prod = 1;
+        for (int x : arr) prod *= x;
+        return prod;
+    }
+
+
+    public static double findSumOfSquares(int[] arr) {
+        double sumSq = 0;
+        for (int x : arr) {
+            sumSq += Math.pow(x, 2);
+        }
+        return sumSq;
+    }
+}
+
+
+2.
+import java.util.Scanner;
+
+
+public class NaturalSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a natural number (n > 0): ");
+        int n = sc.nextInt();
+
+
+        if (n <= 0) {
+            System.out.println("That is not a natural number.");
+            return;
+        }
+
+
+        int recursiveResult = sumRecursive(n);
+        int formulaResult = sumFormula(n);
+
+
+        System.out.println("Recursive Result: " + recursiveResult);
+        System.out.println("Formula Result: " + formulaResult);
+
+
+        if (recursiveResult == formulaResult) {
+            System.out.println("Comparison: Both computations are correct!");
+        }
+    }
+
+
+    public static int sumRecursive(int n) {
+        if (n <= 1) return n;
+        return n + sumRecursive(n - 1);
+    }
+
+
+    public static int sumFormula(int n) {
+        return (n * (n + 1)) / 2;
+    }
+}
+
+
+3.
+import java.util.Scanner;
+
+
+public class LeapYearChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a year: ");
+        int year = sc.nextInt();
+
+
+        if (year < 1582) {
+            System.out.println("The Leap Year program only works for years >= 1582.");
+        } else {
+            if (isLeapYear(year)) {
+                System.out.println(year + " is a Leap Year.");
+            } else {
+                System.out.println(year + " is NOT a Leap Year.");
+            }
+        }
+    }
+
+
+    public static boolean isLeapYear(int year) {
+        // A leap year is divisible by 4 AND (not divisible by 100 OR divisible by 400)
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+}
+
+
+
+
+Level 3:
+
+
+1.
+import java.util.Random;
+
+
+public class FootballHeights {
+    public static void main(String[] args) {
+        int[] heights = new int[11];
+        Random rand = new Random();
+
+
+        // Fill array with random heights between 150 and 250
+        for (int i = 0; i < heights.length; i++) {
+            heights[i] = rand.nextInt(101) + 150; // (0-100) + 150
+        }
+
+
+        System.out.print("Player Heights (cms): ");
+        for (int h : heights) System.out.print(h + " ");
+        System.out.println("\n--- Results ---");
+
+
+        int totalSum = findSum(heights);
+        System.out.println("Sum of Heights: " + totalSum);
+        System.out.println("Mean Height: " + findMean(heights));
+        System.out.println("Shortest Player: " + findShortest(heights) + " cms");
+        System.out.println("Tallest Player: " + findTallest(heights) + " cms");
+    }
+
+
+    public static int findSum(int[] arr) {
+        int sum = 0;
+        for (int h : arr) sum += h;
+        return sum;
+    }
+
+
+    public static double findMean(int[] arr) {
+        return (double) findSum(arr) / arr.length;
+    }
+
+
+    public static int findShortest(int[] arr) {
+        int min = arr[0];
+        for (int h : arr) if (h < min) min = h;
+        return min;
+    }
+
+
+    public static int findTallest(int[] arr) {
+        int max = arr[0];
+        for (int h : arr) if (h > max) max = h;
+        return max;
+    }
+}
+
+
+2.
+import java.util.Scanner;
+
+
+public class NumberChecker {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number to check: ");
+        int input = sc.nextInt();
+
+
+        int[] digits = storeDigits(input);
+
+
+        System.out.println("Digit Count: " + getDigitCount(input));
+        System.out.println("Is Duck Number: " + isDuckNumber(digits));
+        System.out.println("Is Armstrong Number: " + isArmstrong(input, digits));
+        
+        findLargestTwo(digits);
+        findSmallestTwo(digits);
+    }
+
+
+    public static int getDigitCount(int n) {
+        return String.valueOf(Math.abs(n)).length();
+    }
+
+
+    public static int[] storeDigits(int n) {
+        int count = getDigitCount(n);
+        int[] digits = new int[count];
+        n = Math.abs(n);
+        for (int i = count - 1; i >= 0; i--) {
+            digits[i] = n % 10;
+            n /= 10;
+        }
+        return digits;
+    }
+
+
+    public static boolean isDuckNumber(int[] digits) {
+        // Checks if there is at least one zero present
+        for (int d : digits) {
+            if (d == 0) return true;
+        }
+        return false;
+    }
+
+
+    public static boolean isArmstrong(int original, int[] digits) {
+        double sum = 0;
+        int power = digits.length;
+        for (int d : digits) {
+            sum += Math.pow(d, power);
+        }
+        return (int) sum == original;
+    }
+
+
+    public static void findLargestTwo(int[] digits) {
+        int first = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+
+
+        for (int d : digits) {
+            if (d > first) {
+                second = first;
+                first = d;
+            } else if (d > second && d != first) {
+                second = d;
+            }
+        }
+        System.out.println("Largest: " + first + ", Second Largest: " + (second == Integer.MIN_VALUE ? "N/A" : second));
+    }
+
+
+    public static void findSmallestTwo(int[] digits) {
+        int first = Integer.MAX_VALUE;
+        int second = Integer.MAX_VALUE;
+
+
+        for (int d : digits) {
+            if (d < first) {
+                second = first;
+                first = d;
+            } else if (d < second && d != first) {
+                second = d;
+            }
+        }
+        System.out.println("Smallest: " + first + ", Second Smallest: " + (second == Integer.MAX_VALUE ? "N/A" : second));
+    }
+}
