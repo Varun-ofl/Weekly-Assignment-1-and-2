@@ -1,0 +1,385 @@
+﻿Week 9 and 10 Practice Problems
+
+
+Level 1:
+
+
+1.
+import java.util.Scanner;
+
+
+public class StringComparison {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter first string: ");
+        String s1 = sc.next();
+        System.out.print("Enter second string: ");
+        String s2 = sc.next();
+
+
+        boolean manualResult = compareStrings(s1, s2);
+        boolean builtInResult = s1.equals(s2);
+
+
+        System.out.println("Manual Comparison (charAt): " + manualResult);
+        System.out.println("Built-in Comparison (equals): " + builtInResult);
+        System.out.println("Results Match: " + (manualResult == builtInResult));
+    }
+
+
+    public static boolean compareStrings(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) return false;
+        }
+        return true;
+    }
+}
+
+
+2.
+import java.util.Scanner;
+
+
+public class SubstringManual {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter text: ");
+        String text = sc.next();
+        System.out.print("Enter start index: ");
+        int start = sc.nextInt();
+        System.out.print("Enter end index: ");
+        int end = sc.nextInt();
+
+
+        String manualSub = getManualSubstring(text, start, end);
+        String builtInSub = text.substring(start, end);
+
+
+        System.out.println("Manual Substring: " + manualSub);
+        System.out.println("Built-in Substring: " + builtInSub);
+        System.out.println("Match: " + manualSub.equals(builtInSub));
+    }
+
+
+    public static String getManualSubstring(String str, int start, int end) {
+        String res = "";
+        for (int i = start; i < end; i++) {
+            res += str.charAt(i);
+        }
+        return res;
+    }
+}
+
+
+3.
+import java.util.Scanner;
+import java.util.Arrays;
+
+
+public class CharArrayComparison {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter text: ");
+        String text = sc.next();
+
+
+        char[] manualArray = getCharsManually(text);
+        char[] builtInArray = text.toCharArray();
+
+
+        boolean arraysMatch = compareCharArrays(manualArray, builtInArray);
+
+
+        System.out.println("Manual Array: " + Arrays.toString(manualArray));
+        System.out.println("Built-in Array: " + Arrays.toString(builtInArray));
+        System.out.println("Arrays are identical: " + arraysMatch);
+    }
+
+
+    public static char[] getCharsManually(String str) {
+        char[] chars = new char[str.length()];
+        for (int i = 0; i < str.length(); i++) {
+            chars[i] = str.charAt(i);
+        }
+        return chars;
+    }
+
+
+    public static boolean compareCharArrays(char[] arr1, char[] arr2) {
+        if (arr1.length != arr2.length) return false;
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) return false;
+        }
+        return true;
+    }
+}
+
+
+4.
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        System.out.println("Attempting to trigger exception...");
+        try {
+            generateException();
+        } catch (NullPointerException e) {
+            System.out.println("Caught Exception: " + e);
+        }
+        
+        handleException();
+    }
+
+
+    public static void generateException() {
+        String text = null;
+        text.length(); // This triggers the NullPointerException
+    }
+
+
+    public static void handleException() {
+        String text = null;
+        try {
+            System.out.println("Length is: " + text.length());
+        } catch (NullPointerException e) {
+            System.out.println("Handled Exception: Cannot call methods on a null object.");
+        }
+    }
+}
+
+
+
+
+Level 2:
+
+
+1.
+import java.util.Scanner;
+
+
+public class ManualLength {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = sc.next();
+
+
+        int manualLen = findLength(input);
+        System.out.println("Manual Length: " + manualLen);
+        System.out.println("Built-in Length: " + input.length());
+    }
+
+
+    public static int findLength(String s) {
+        int count = 0;
+        try {
+            while (true) {
+                s.charAt(count);
+                count++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return count;
+        }
+    }
+}
+
+
+2.
+import java.util.Scanner;
+import java.util.Arrays;
+
+
+public class ManualSplit {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a sentence:");
+        String text = sc.nextLine();
+
+
+        // 1. Get manual split
+        String[] manualWords = manualSplitLogic(text);
+        
+        // 2. Get built-in split
+        String[] builtInWords = text.split(" ");
+
+
+        // 3. Compare and display
+        boolean match = compareStringArrays(manualWords, builtInWords);
+        
+        System.out.println("Manual Split: " + Arrays.toString(manualWords));
+        System.out.println("Built-in Split: " + Arrays.toString(builtInWords));
+        System.out.println("Results Match: " + match);
+    }
+
+
+    public static String[] manualSplitLogic(String text) {
+        // Count words based on spaces
+        int spaceCount = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == ' ') spaceCount++;
+        }
+
+
+        String[] words = new String[spaceCount + 1];
+        int wordIndex = 0;
+        String currentWord = "";
+
+
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == ' ') {
+                words[wordIndex++] = currentWord;
+                currentWord = "";
+            } else {
+                currentWord += text.charAt(i);
+            }
+        }
+        words[wordIndex] = currentWord; // Add the last word
+        return words;
+    }
+
+
+    public static boolean compareStringArrays(String[] arr1, String[] arr2) {
+        if (arr1.length != arr2.length) return false;
+        for (int i = 0; i < arr1.length; i++) {
+            if (!arr1[i].equals(arr2[i])) return false;
+        }
+        return true;
+    }
+}
+
+
+3.
+import java.util.Scanner;
+
+
+public class WordLengthTable {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a sentence:");
+        String text = sc.nextLine();
+
+
+        String[] words = text.split(" ");
+        String[][] data = generate2DArray(words);
+
+
+        System.out.println("\nWord\t\tLength");
+        System.out.println("-----------------------");
+        for (String[] row : data) {
+            int len = Integer.parseInt(row[1]); // Converting back to Int as per prompt
+            System.out.println(row[0] + "\t\t" + len);
+        }
+    }
+
+
+    public static String[][] generate2DArray(String[] words) {
+        String[][] table = new String[words.length][2];
+        for (int i = 0; i < words.length; i++) {
+            table[i][0] = words[i];
+            table[i][1] = String.valueOf(words[i].length());
+        }
+        return table;
+    }
+}
+
+
+
+
+Level 3:
+
+
+1.
+import java.util.Scanner;
+
+
+public class BMICalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[][] metrics = new double[10][2];
+
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Member " + (i + 1));
+            System.out.print("Weight (kg): ");
+            metrics[i][0] = sc.nextDouble();
+            System.out.print("Height (cm): ");
+            metrics[i][1] = sc.nextDouble();
+        }
+
+
+        String[][] results = processBMI(metrics);
+        displayTable(metrics, results);
+    }
+
+
+    public static String[][] processBMI(double[][] metrics) {
+        String[][] statusArr = new String[10][2];
+        for (int i = 0; i < 10; i++) {
+            double hMeter = metrics[i][1] / 100;
+            double bmi = metrics[i][0] / (hMeter * hMeter);
+            statusArr[i][0] = String.format("%.2f", bmi);
+            
+            if (bmi <= 18.4) statusArr[i][1] = "Underweight";
+            else if (bmi <= 24.9) statusArr[i][1] = "Normal";
+            else if (bmi <= 39.9) statusArr[i][1] = "Overweight";
+            else statusArr[i][1] = "Obese";
+        }
+        return statusArr;
+    }
+
+
+    public static void displayTable(double[][] metrics, String[][] results) {
+        System.out.println("\nWeight\tHeight\tBMI\tStatus");
+        for (int i = 0; i < 10; i++) {
+            System.out.println(metrics[i][0] + "\t" + metrics[i][1] + "\t" + results[i][0] + "\t" + results[i][1]);
+        }
+    }
+}
+
+
+2.
+import java.util.Scanner;
+
+
+public class UniqueChars {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter text: ");
+        String text = sc.nextLine();
+
+
+        char[] unique = findUnique(text);
+        System.out.print("Unique Characters: ");
+        for (char c : unique) {
+            System.out.print(c + " ");
+        }
+    }
+
+
+    public static char[] findUnique(String text) {
+        char[] temp = new char[text.length()];
+        int count = 0;
+
+
+        for (int i = 0; i < text.length(); i++) {
+            char current = text.charAt(i);
+            boolean isUnique = true;
+            
+            // Check if character already appeared before
+            for (int j = 0; j < i; j++) {
+                if (text.charAt(j) == current) {
+                    isUnique = false;
+                    break;
+                }
+            }
+            if (isUnique) {
+                temp[count++] = current;
+            }
+        }
+
+
+        // Resize array to fit only unique chars
+        char[] result = new char[count];
+        for (int i = 0; i < count; i++) result[i] = temp[i];
+        return result;
+    }
+}
